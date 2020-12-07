@@ -27,10 +27,7 @@ namespace Company.Function
             //
             // Load up the service in a Task, this could be long running
             AAI.KeySentiments textAnalytics;
-            textAnalytics = await Task.Run(() =>
-            {
-                return new AAI.KeySentiments();
-            });
+            textAnalytics = new AAI.KeySentiments();
             //
             if (textAnalytics == null ||
                 textAnalytics.AzureTextAnalyticsService == null)
@@ -48,10 +45,7 @@ namespace Company.Function
                 StreamWriter writer = new StreamWriter(ms);
                 //
                 // Call to get the sentiments could be long running, use a Task.
-                await Task.Run(() =>
-                {
-                    textAnalytics.Sentiment(input, writer);
-                });
+                textAnalytics.Sentiment(input, writer);
                 ms.Seek(0, SeekOrigin.Begin);
             }
             catch (Exception)
