@@ -13,6 +13,7 @@ namespace UnitTests
         public async Task LocalPostTest()
         {
             string url = "http://localhost:7071/api/KeySentiments";
+            //string url = "<remote function site - from portal>/api/KeySentiments";
             string test = "There is a happy dog barking in the forground.";
             string answer = "Neutral, 0.28, 0.06, 0.66, \"happy dog barking\", \"forground\"";
             Uri site = new Uri(url);
@@ -24,19 +25,21 @@ namespace UnitTests
             data = data.Trim(new char[] { '\r', '\n' });
             Assert.AreEqual(answer, data);
         }
-
         [TestMethod]
         public async Task LocalStreamTest()
         {
             string url = "http://localhost:7071/api/KeySentiments";
-            string[] test = {
-        "There is a happy dog barking in the forground. ",
-        "There were problems with the packaging so the ACME radio side was cracked and the customer was not happy."
-        };
-            string[] answer = {
-        "Neutral, 0.28, 0.06, 0.66, \"happy dog barking\", \"forground\"",
-        "Negative, 0.00, 1.00, 0.00, \"ACME radio\", \"packaging\", \"customer\", \"problems\""
-        };
+            //string url = "<remote function site - from portal>/api/KeySentiments";
+            string[] test =
+            {
+                "There is a happy dog barking in the foreground. ",
+                "There were problems with the packaging so the ACME radio side was cracked and the customer was not happy."
+            };
+            string[] answer =
+            {
+                "Neutral, 0.28, 0.06, 0.66, \"happy dog barking\", \"foreground\"",
+                "Negative, 0.00, 1.00, 0.00, \"ACME radio\", \"packaging\", \"customer\", \"problems\""
+            };
             HttpClient client = new HttpClient();
             using (Stream input = new MemoryStream())
             {
